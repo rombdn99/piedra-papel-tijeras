@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Piedra Papel Tijeras</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="utf-8">
+	<meta name="description" content="Juego de Piedra, Papel, Tijeras contra el ordenador">
+  	<meta name="author" content="Raul Osuna Montes">
+	<meta >
+	<style type="text/css">
+		*{
+			padding: 0;
+			margin: 0;
+			font-family: sans-serif;
+		}
+		figure img{
+			width: 100%;
+			height: 100%;
+			filter:drop-shadow(15px 12px 20px black)
+		}
+		main{
+			display: grid;
+			grid-template-columns: 50% auto;
+		}
+		h1,h2,h3,h4,h5{
+			text-shadow: 0px 0px 10px rgba(0, 0, 0, 1);
+		}
+		header{
+			padding: 2%;
+			background-color: #19ABA0;
+		}
+		header h1{
+			text-align: center;
+			color: #fff;
+			
+		}
+
+		/*puntuaciones*/
+		main section:first-of-type{
+			grid-area: 1/1/2/3;
+			background-color: #B3CC33
+		}
+		main section:first-of-type ul{
+			display: flex;
+			flex-direction: row;
+			list-style: none;
+			justify-content: space-around;
+			padding: 2%;
+		}
+		main section:first-of-type ul li{
+			padding: 2%;
+			border: 1px solid #000;
+			border-radius: 20px;
+			background-color: #f00;
+			box-shadow: 0px 0px 10px rgba(0, 0, 0, 1);
+			text-align: center;
+		}
+		/* juego*/
+		main section:nth-of-type(2){
+			grid-area: 2/1/3/3;
+			display: grid;
+			grid-template-columns: 20% auto 20%;
+			background-color: #000;
+			padding: 2%;
+			grid-gap: 0 1%
+		}
+		main section:nth-of-type(2) div:first-of-type{
+			grid-area: 1/1/2/2;
+		}
+		main section:nth-of-type(2) div:first-of-type img{
+			filter: none;
+		}
+		main section:nth-of-type(2) figcaption{
+			color: #fff;
+			text-align: center;
+			font-size: 1em;
+		}
+		main section:nth-of-type(2) div:nth-of-type(2){
+			grid-area: 1/2/2/3;
+			display: flex;
+			justify-content: center;
+			align-content: center;
+			background-size: 100% 100%;
+			background-color: #fff;
+			display: flex;
+			justify-content: center;
+			align-content: center;
+
+		}
+		main section:nth-of-type(2) div:nth-of-type(2) output{
+			   font-weight: bold;
+			   font-size: 2em;
+			    
+			    color: #000;
+			    /* background-color: white; */
+			    justify-content: center;
+			    width: 100%;
+			    align-items: center;
+			    text-align: center;
+			    display: flex;
+			    transition: 1s;
+		}
+		main section:nth-of-type(2) div:nth-of-type(3){
+			grid-area: 1/3/2/4;
+		}
+		main section:nth-of-type(2) div:nth-of-type(3) img{
+			transition: 2.5s;
+		}
+		main section:nth-of-type(2) div:nth-of-type(4){
+			grid-area: 2/1/3/4;
+			color: #fff;
+			text-align: center;
+		}
+		/* seleccion de carta*/
+		main section:nth-of-type(3){
+			grid-area: 3/1/4/3;
+			padding: 2%;
+			background-color: #B3CC33;
+		}
+		main section:nth-of-type(3) ul{
+			display: flex;
+			flex-direction: row;
+			list-style: none;
+			justify-content: space-around;
+		}
+		main section:nth-of-type(3) ul li{
+			width: 10%;
+			transition: ease 0.5s;
+			cursor: pointer;
+		}
+		main section:nth-of-type(3) ul li:hover{
+			transform: scale(1.3);
+		}
+		main section:nth-of-type(3) ul li figcaption{
+			text-align: center;
+		}
+		/* explicacion juego*/
+		main section:last-of-type{
+			grid-area: 4/1/5/3;
+			background-color: #295183;
+			color: #fff;
+			padding: 2%;
+		}
+		main section:last-of-type h2{
+			text-align: center;
+		
+			padding: 2%;
+		}
+		main section:last-of-type figure{
+			width: 100%;
+			display: grid;
+			grid-template-columns: 30% 50%;
+			justify-content: space-between;
+			align-items: center;
+			
+		}
+		main section:last-of-type figure img{
+			width: 100%;
+			height: auto;
+		}
+		main section:last-of-type figure figcaption{
+			padding: 3% 2% 0 15%;	
+			box-sizing: border-box;
+			font-size: 1.1em;
+		}
+		
+		main section:last-of-type figure figcaption ul{
+			    text-align: center;
+			    list-style: none;
+			    
+		}
+		main section:last-of-type figure figcaption ul li{
+			padding: 3% 0;
+
+		}
+		main section:nth-of-type(2) div:nth-of-type(2).cuenta output{
+			    box-shadow: rgb(0, 0, 0) 0px 0px 51px 71px inset;
+		}
+		main section:nth-of-type(2) div:nth-of-type(2).cuenta{
+			background-color:#fff;
+			background-image: none;
+		}
+		main section:nth-of-type(2) div:nth-of-type(2).nocuenta{
+			    box-shadow: rgb(0, 0, 0) 0px 0px 35px 0px inset;
+		}
+		main section:nth-of-type(2) div:nth-of-type(2).ganado{
+			background-image: url('img/confetti.gif');
+			background-color: rgb(255,215,0);
+		}
+		main section:nth-of-type(2) div:nth-of-type(2).perdido{
+			background-image: url('img/perder.gif');
+			background-color: rgb(72,72,118);
+		}
+		.empate{
+			background-image: url('img/empate.jpg');
+		}
+		.nocuenta.empate output{
+			color: #fff;
+		}
+		main section:nth-of-type(2) div:nth-of-type(2).carta{
+			text-transform: capitalize;
+			font-weight: bold;
+
+		}
+		.piedra,.papel,.tijeras{
+			text-transform: capitalize;
+			font-weight: bold;
+
+		}
+		.piedra{
+			color: #19ABA0
+		}
+		.papel{
+			color: #f00;
+		}
+		.tijeras{
+			color: #B3CC33
+		}
+		.empatado{
+			color: #fff;
+		}
+		footer{
+			background-color: #000;
+			padding: 2%;
+		}
+		footer h3{
+			text-align: center;
+			font-size: 1.5em;
+			color: #fff;
+		}
+		
+		@media screen and (max-width: 900px){
+			main section:last-of-type figure{
+				grid-template-columns: 40% auto;
+			}
+			main section:nth-of-type(2){
+				grid-template-columns: 48% 48%;
+				justify-content: space-around;
+			}
+			main section:nth-of-type(2) div:first-of-type{
+				margin-top: 2%;
+				grid-area: 2/1/3/2;
+			}
+			main section:nth-of-type(2) div:nth-of-type(2){
+				grid-area: 1/1/2/3;
+				height: 30vh;
+			}
+			main section:nth-of-type(2) div:nth-of-type(3){
+				margin-top: 2%;
+				grid-area: 2/2/3/3;
+			}
+
+			h1{
+				font-size: 3em;
+			}
+			h2{
+				font-size: 2.75em
+			}
+			h3{
+				font-size: 2.5em;
+			}
+			h4{
+				font-size: 2.25em;
+			}
+			main section:nth-of-type(3) ul li{
+				width: 20%;
+			}
+			main section:nth-of-type(2) div:nth-of-type(2).cuenta output{
+			    box-shadow: rgb(0, 0, 0) 0px 0px 51px 40px inset;
+			}
+			main section:nth-of-type(2) figcaption{
+				font-size: 2em;
+			}
+			main section:nth-of-type(3) ul li figcaption{
+				font-size: 2em;
+			}
+			main section:first-of-type ul li{
+				font-size: 1.5em;
+			}
+		}
+		@media screen and (max-width: 500px){
+			main section:last-of-type figure{
+				grid-template-columns: auto;
+			}
+			main section:first-of-type ul li{
+				font-size: 1em;
+			}
+			h1{
+				font-size: 2.25em
+			}
+			main section:nth-of-type(2) figcaption{
+				font-size: 1.5em;
+			}
+			main section:nth-of-type(3) ul li figcaption{
+				font-size: 1.2em;
+			}
+	
+		}
+	</style>
+</head>
+	<body>
+		<header>
+			<h1>Piedra papel tijeras</h1>
+			
+		</header>
+		<nav>
+			<label>Numero de Jugadores:</label>
+			<select id="numjug" onchange="cambionumjug()">
+				<option value="1"  selected="selected">1 Jugador</option>
+				<option value="2">2 Jugadores</option>
+			</select>
+			<label>Tipo de juego</label>
+			<select id="tjuego" onchange="cambiojuego()">
+				<option value="1"  selected="selected">Juego tradicional</option>
+				<option value="2">Version Big Bang Theory</option>
+			</select>
+		</nav>
+		<main>
+			<section>
+				
+				<ul>
+					<li>Partidas: <output id="partidas">0</output></li>
+					<li><span id="jug1v">Victorias</span>: <output id="victorias">0</output></li>
+					<li><span id="jug2d">Derrotas</span>: <output id="derrotas">0</output></li>
+					<li>Empates: <output id="empates">0</output></li>
+				</ul>
+			</section>	
+			<section>
+				<div>
+					<figure>
+						<figcaption>Jugador</figcaption>
+						<img id="imgjug" src="img/nada.png" alt="Carta de Jugador" title="Carta elegida por el jugador">
+					</figure>
+				</div>
+				<div id="otrosfondo">
+					<output id="otros"> </output>
+				</div>
+				<div>
+					<figure>
+						<figcaption>Ordenador</figcaption>
+						<img id="imgia" src="img/nada.png" alt="Carta de ordenador" title="Carta elegida por el ordenador">
+					</figure>
+				</div>
+				<div><h2 >Turno de <output id="turno">Jugador 1</output></h2></div>
+			</section>
+			<section>
+				<ul>
+					<li onclick="jugar(1);" >
+						<figure>
+							<img src="img/piedra.png" alt="Piedra" title="Piedra">
+							<figcaption>Piedra</figcaption>
+						</figure>
+					</li>
+					<li onclick="jugar(2);" >
+						<figure>
+							<img src="img/papel.png" alt="Papel" title="Papel">
+							<figcaption>Papel</figcaption>
+						</figure>
+					</li>
+					<li onclick="jugar(3);" >
+						<figure>
+							<img src="img/tijeras.png" alt="Tijeras" title="Tijeras">
+							<figcaption>Tijeras</figcaption>
+						</figure>
+					</li>
+					
+
+				</ul>
+			</section>
+			<section>
+				<h2>Reglas</h2>
+				<figure>
+					<img src="img/comparacion.png" alt="Reglas" title="Reglas">
+					<figcaption>
+						<p>Escoge una de las cartas (piedra, papel o tijeras), la IA ara lo mismo. A continuación, se comparan las dos elecciones y se elige el resultado de la siguiente manera:</p>
+						<ul>
+							<li><span class="carta piedra">Piedra</span> gana a <span class="carta tijeras">tijeras</span></li>
+							<li><span class="carta tijeras">tijeras</span> gana a <span class="carta papel">papel</span></li>
+							<li><span class="carta papel">papel</span> gana a <span class="carta piedra">piedra</span></li>
+						</ul>
+					</figcaption>
+				</figure>
+			</section>
+		</main>
+		<footer>
+			<h3>Pagina realizada por Raul Osuna Montes</h3>
+		</footer>
+		<script type="text/javascript" src="js.js"></script>
+	</body>
+</html>
